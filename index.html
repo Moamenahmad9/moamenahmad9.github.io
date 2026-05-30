@@ -149,6 +149,8 @@
     display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
   }
   .card-icon svg { width: 20px; height: 20px; }
+  .card-icon.duo { width: auto; min-width: 40px; padding: 0 9px; gap: 7px; }
+  .card-icon.duo svg { width: 18px; height: 18px; }
   .card h3 { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px; }
   .card p { font-size: 0.875rem; color: hsl(var(--muted-foreground)); }
   .card .check {
@@ -261,7 +263,7 @@
         <button class="card" data-service="Used car buying consultancy">
           <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
           <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2v-3.3a2 2 0 0 0-.5-1.3L18 9.4A2 2 0 0 0 16.5 9H5a2 2 0 0 0-2 2v6h2"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/><path d="M9 17h6"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.6-4.3A2 2 0 0 1 8.5 7.4h7a2 2 0 0 1 1.9 1.3L19 13"/><path d="M3 17v-2.5a2 2 0 0 1 1.4-1.9l1-.3a30 30 0 0 1 13.2 0l1 .3A2 2 0 0 1 21 14.5V17a1 1 0 0 1-1 1h-1.5"/><path d="M5.5 18H4a1 1 0 0 1-1-1"/><circle cx="7.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/><path d="M9.1 17.5h5.8"/></svg>
           </div>
           <h3>Buying a used car</h3>
           <p>Independent advice on what to buy, what to avoid, and how to inspect before you pay.</p>
@@ -269,8 +271,9 @@
 
         <button class="card" data-service="Restoration & repair consultancy (mechanical and body work)">
           <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-          <div class="card-icon">
+          <div class="card-icon duo">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="3" width="4" height="4" rx="1"/><path d="M18 7l2.2 2.2a1 1 0 0 1 .3.7V20a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V9.9a1 1 0 0 1 .3-.7L16 7"/><path d="M13.5 13h7"/><path d="M3 4h.5M6.5 5.5h.5M10 7h.5M3 8h.5M6.5 9.5h.5M3 12h.5"/></svg>
           </div>
           <h3>Restoration &amp; repair</h3>
           <p>Guidance on mechanical work and body work — scoping jobs, priorities, and getting it done right.</p>
@@ -279,7 +282,7 @@
         <button class="card" data-service="Collection & fleet maintenance consultancy">
           <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
           <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h13v6H3zM16 11h3l2 2v2h-5z"/><circle cx="6" cy="17" r="1.6"/><circle cx="18" cy="17" r="1.6"/><path d="M3 6h10"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15.5l1-3.2a2 2 0 0 1 1.7-1.4l2.8-.3 2.4-2a4 4 0 0 1 2.6-.9h2.2a3 3 0 0 1 2.5 1.4L21 11l1 .4a1 1 0 0 1 .7 1v2.6a.9.9 0 0 1-.9.9h-1.3"/><path d="M3.3 16H2.6a.9.9 0 0 1-.9-.9"/><path d="M6.5 16h11"/><path d="M11 8.8l-.5 1.8h6.5"/><circle cx="5" cy="16.5" r="1.8"/><circle cx="19" cy="16.5" r="1.8"/></svg>
           </div>
           <h3>Collections &amp; fleets</h3>
           <p>Maintenance planning for owned car collections and fleets — keep everything in top condition.</p>
