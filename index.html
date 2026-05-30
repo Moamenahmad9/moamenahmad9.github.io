@@ -179,6 +179,31 @@
   .contact-card p { color: hsl(var(--muted-foreground)); font-size: 0.95rem; margin-bottom: 24px; }
   .contact-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
+  /* ---- contact form ---- */
+  .contact-form { text-align: left; display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 0.8rem; font-weight: 500; }
+  .field input, .field select, .field textarea {
+    font-family: inherit; font-size: 0.9rem;
+    background: hsl(var(--background)); color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--input)); border-radius: var(--radius);
+    padding: 10px 12px; width: 100%;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field textarea { resize: vertical; min-height: 96px; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: hsl(var(--ring)); box-shadow: 0 0 0 2px hsl(var(--ring) / 0.25);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: hsl(var(--muted-foreground)); }
+  .btn.full { width: 100%; }
+  .form-note { font-size: 0.85rem; margin: 2px 0 0; min-height: 1px; text-align: center; }
+  .form-note.ok { color: hsl(142 55% 42%); }
+  .form-note.warn { color: hsl(0 65% 55%); }
+  .contact-or {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em;
+    color: hsl(var(--muted-foreground)); margin: 4px 0 12px;
+  }
+
   /* ---- footer ---- */
   footer {
     border-top: 1px solid hsl(var(--border));
@@ -274,11 +299,36 @@
           <span id="selectedText"></span>
         </div>
         <h2>Let's talk</h2>
-        <p>Reach out by email or send me a message on YouTube — happy to help.</p>
-        <div class="contact-actions">
-          <a class="btn btn-primary" id="emailBtn" href="mailto:moamen9@live.com?subject=Consultancy%20enquiry">Email me</a>
-          <a class="btn btn-outline" href="https://www.youtube.com/@moamen_13" target="_blank" rel="noopener">Message on YouTube</a>
-        </div>
+        <p>Send me a message about your car or project — happy to help.</p>
+
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" required placeholder="Your name" />
+          </div>
+          <div class="field">
+            <label for="cf-email">Your email</label>
+            <input id="cf-email" name="email" type="email" required placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label for="cf-service">Service</label>
+            <select id="cf-service" name="service">
+              <option value="">General enquiry</option>
+              <option value="Used car buying consultancy">Buying a used car</option>
+              <option value="Restoration &amp; repair consultancy (mechanical and body work)">Restoration &amp; repair</option>
+              <option value="Collection &amp; fleet maintenance consultancy">Collections &amp; fleets</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="4" required placeholder="Tell me about your car or project…"></textarea>
+          </div>
+          <button class="btn btn-primary full" type="submit" id="cf-submit">Send message</button>
+          <p class="form-note" id="cf-status"></p>
+        </form>
+
+        <div class="contact-or">or reach me directly</div>
+        <a class="btn btn-outline full" href="https://www.youtube.com/@moamen_13" target="_blank" rel="noopener">Message on YouTube</a>
       </div>
     </section>
   </main>
@@ -314,7 +364,7 @@
   const cards = document.querySelectorAll('.card');
   const pill = document.getElementById('selectedPill');
   const pillText = document.getElementById('selectedText');
-  const emailBtn = document.getElementById('emailBtn');
+  const serviceSelect = document.getElementById('cf-service');
 
   cards.forEach(card => {
     card.addEventListener('click', () => {
@@ -323,7 +373,7 @@
 
       if (already) {
         pill.classList.remove('show');
-        emailBtn.href = 'mailto:moamen9@live.com?subject=Consultancy%20enquiry';
+        serviceSelect.value = '';
         return;
       }
 
@@ -331,9 +381,56 @@
       const service = card.dataset.service;
       pillText.textContent = service;
       pill.classList.add('show');
-      emailBtn.href = 'mailto:moamen9@live.com?subject=' + encodeURIComponent('Enquiry: ' + service);
+      serviceSelect.value = service;
       document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
     });
+  });
+
+  // ---- Contact form ----
+  // To make the form deliver messages to your inbox, create a free form at
+  // https://formspree.io (takes ~2 min), then paste its form ID below
+  // (the part after /f/ in your endpoint, e.g. "xyzabcd").
+  const FORMSPREE_ID = "";
+
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('cf-status');
+  const submitBtn = document.getElementById('cf-submit');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    if (!FORMSPREE_ID) {
+      status.className = 'form-note warn';
+      status.textContent = "The message form isn't connected yet — please reach me on YouTube below.";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    status.textContent = '';
+
+    try {
+      const res = await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      if (res.ok) {
+        form.reset();
+        status.className = 'form-note ok';
+        status.textContent = "Thanks! Your message has been sent — I'll get back to you soon.";
+      } else {
+        status.className = 'form-note warn';
+        status.textContent = "Something went wrong. Please try YouTube below instead.";
+      }
+    } catch {
+      status.className = 'form-note warn';
+      status.textContent = "Couldn't send right now. Please try YouTube below instead.";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send message';
+    }
   });
 
   document.getElementById('year').textContent = new Date().getFullYear();
