@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Moamen El Arkan</title>
+<meta name="description" content="Moamen El Arkan — automotive consultancy: buying used cars, restoration & repair, and maintaining car collections and fleets." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ---- shadcn-style design tokens (New York / zinc) ---- */
+  :root {
+    --background: 240 6% 96%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.65rem;
+  }
+  .dark {
+    --background: 240 10% 3%;
+    --foreground: 0 0% 98%;
+    --card: 240 6% 8%;
+    --card-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --ring: 240 4.9% 83.9%;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  ::selection { background: hsl(var(--foreground)); color: hsl(var(--background)); }
+
+  .container { width: 100%; max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---- header ---- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(8px);
+    background-color: hsl(var(--background) / 0.7);
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .brand { font-weight: 600; font-size: 0.95rem; letter-spacing: -0.01em; }
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+
+  /* ---- buttons (shadcn-like) ---- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: inherit; font-size: 0.875rem; font-weight: 500;
+    height: 38px; padding: 0 16px;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    cursor: pointer; text-decoration: none; white-space: nowrap;
+    transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, transform 0.05s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-outline { background: transparent; color: hsl(var(--foreground)); border-color: hsl(var(--border)); }
+  .btn-outline:hover { background: hsl(var(--accent)); }
+  .btn-ghost { background: transparent; color: hsl(var(--foreground)); }
+  .btn-ghost:hover { background: hsl(var(--accent)); }
+  .icon-btn { width: 38px; height: 38px; padding: 0; }
+  .icon-btn svg { width: 18px; height: 18px; }
+
+  /* ---- hero ---- */
+  .hero { padding: 72px 0 56px; text-align: center; }
+  .avatar {
+    width: 116px; height: 116px; border-radius: 50%;
+    margin: 0 auto 28px;
+    object-fit: cover;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--muted));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem; font-weight: 600; color: hsl(var(--muted-foreground));
+    overflow: hidden;
+  }
+  .hero h1 {
+    font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .hero .lead {
+    font-size: 1.05rem; color: hsl(var(--muted-foreground));
+    max-width: 560px; margin: 0 auto 28px;
+  }
+  .hero-cta { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+  /* ---- section ---- */
+  section { padding: 8px 0; }
+  .section-block { padding: 40px 0; border-top: 1px solid hsl(var(--border)); }
+  .eyebrow {
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: hsl(var(--muted-foreground)); margin-bottom: 8px;
+  }
+  .section-title { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .section-sub { color: hsl(var(--muted-foreground)); font-size: 0.95rem; margin-bottom: 28px; }
+
+  /* ---- services grid ---- */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card {
+    position: relative;
+    background: hsl(var(--card)); color: hsl(var(--card-foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    font-family: inherit;
+  }
+  .card:hover { border-color: hsl(var(--foreground) / 0.35); transform: translateY(-3px); }
+  .card.selected {
+    border-color: hsl(var(--ring));
+    box-shadow: 0 0 0 1px hsl(var(--ring));
+  }
+  .card-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: hsl(var(--accent)); color: hsl(var(--accent-foreground));
+    display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  }
+  .card-icon svg { width: 20px; height: 20px; }
+  .card h3 { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .card p { font-size: 0.875rem; color: hsl(var(--muted-foreground)); }
+  .card .check {
+    position: absolute; top: 16px; right: 16px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
+    display: none; align-items: center; justify-content: center;
+  }
+  .card .check svg { width: 12px; height: 12px; }
+  .card.selected .check { display: flex; }
+
+  /* ---- contact ---- */
+  .contact-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+  }
+  .selected-pill {
+    display: none; align-items: center; gap: 8px;
+    background: hsl(var(--accent)); color: hsl(var(--accent-foreground));
+    font-size: 0.8rem; font-weight: 500;
+    padding: 6px 14px; border-radius: 999px; margin: 0 auto 20px; width: fit-content;
+  }
+  .selected-pill.show { display: inline-flex; }
+  .contact-card h2 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .contact-card p { color: hsl(var(--muted-foreground)); font-size: 0.95rem; margin-bottom: 24px; }
+  .contact-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+  /* ---- footer ---- */
+  footer {
+    border-top: 1px solid hsl(var(--border));
+    padding: 28px 0; margin-top: 40px;
+    text-align: center; color: hsl(var(--muted-foreground)); font-size: 0.85rem;
+  }
+
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero { padding: 56px 0 40px; }
+    .hero h1 { font-size: 1.9rem; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <span class="brand">Moamen El Arkan</span>
+      <div class="header-actions">
+        <a class="btn btn-outline" href="https://www.youtube.com/@moamen_13" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+          YouTube
+        </a>
+        <button class="btn btn-ghost icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+          <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <img class="avatar" id="avatar" src="profile.jpg" alt="Moamen El Arkan"
+           onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'avatar',textContent:'ME'}))" />
+      <h1>Moamen El Arkan</h1>
+      <p class="lead">
+        Automotive consultant. I help people buy the right used car, restore and repair what they own,
+        and keep collections and fleets running. Practical advice from real, hands-on experience.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-outline" href="#services">View services</a>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section-block" id="services">
+      <div class="eyebrow">Services</div>
+      <h2 class="section-title">How I can help</h2>
+      <p class="section-sub">Pick what you need — it'll be ready in the contact form below.</p>
+
+      <div class="grid">
+        <button class="card" data-service="Used car buying consultancy">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2v-3.3a2 2 0 0 0-.5-1.3L18 9.4A2 2 0 0 0 16.5 9H5a2 2 0 0 0-2 2v6h2"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/><path d="M9 17h6"/></svg>
+          </div>
+          <h3>Buying a used car</h3>
+          <p>Independent advice on what to buy, what to avoid, and how to inspect before you pay.</p>
+        </button>
+
+        <button class="card" data-service="Restoration & repair consultancy (mechanical and body work)">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg>
+          </div>
+          <h3>Restoration &amp; repair</h3>
+          <p>Guidance on mechanical work and body work — scoping jobs, priorities, and getting it done right.</p>
+        </button>
+
+        <button class="card" data-service="Collection & fleet maintenance consultancy">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h13v6H3zM16 11h3l2 2v2h-5z"/><circle cx="6" cy="17" r="1.6"/><circle cx="18" cy="17" r="1.6"/><path d="M3 6h10"/></svg>
+          </div>
+          <h3>Collections &amp; fleets</h3>
+          <p>Maintenance planning for owned car collections and fleets — keep everything in top condition.</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section-block" id="contact">
+      <div class="eyebrow">Contact</div>
+      <h2 class="section-title">Get in touch</h2>
+      <p class="section-sub">Tell me about your car or your project and I'll get back to you.</p>
+
+      <div class="contact-card">
+        <div class="selected-pill" id="selectedPill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="selectedText"></span>
+        </div>
+        <h2>Let's talk</h2>
+        <p>Reach out by email or send me a message on YouTube — happy to help.</p>
+        <div class="contact-actions">
+          <a class="btn btn-primary" id="emailBtn" href="mailto:moamen9@live.com?subject=Consultancy%20enquiry">Email me</a>
+          <a class="btn btn-outline" href="https://www.youtube.com/@moamen_13" target="_blank" rel="noopener">Message on YouTube</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Moamen El Arkan</div>
+  </footer>
+
+<script>
+  // ---- Theme toggle (persisted) ----
+  const root = document.documentElement;
+  const sun = document.getElementById('iconSun');
+  const moon = document.getElementById('iconMoon');
+
+  function applyTheme(theme) {
+    const dark = theme === 'dark';
+    root.classList.toggle('dark', dark);
+    sun.style.display = dark ? 'none' : 'block';
+    moon.style.display = dark ? 'block' : 'none';
+  }
+
+  const saved = localStorage.getItem('theme')
+    || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  applyTheme(saved);
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const next = root.classList.contains('dark') ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    applyTheme(next);
+  });
+
+  // ---- Service selection ----
+  const cards = document.querySelectorAll('.card');
+  const pill = document.getElementById('selectedPill');
+  const pillText = document.getElementById('selectedText');
+  const emailBtn = document.getElementById('emailBtn');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const already = card.classList.contains('selected');
+      cards.forEach(c => c.classList.remove('selected'));
+
+      if (already) {
+        pill.classList.remove('show');
+        emailBtn.href = 'mailto:moamen9@live.com?subject=Consultancy%20enquiry';
+        return;
+      }
+
+      card.classList.add('selected');
+      const service = card.dataset.service;
+      pillText.textContent = service;
+      pill.classList.add('show');
+      emailBtn.href = 'mailto:moamen9@live.com?subject=' + encodeURIComponent('Enquiry: ' + service);
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
